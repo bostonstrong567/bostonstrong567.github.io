@@ -7,6 +7,8 @@ theme:
     scheme: 'slate'
   logo: 'images/seliware_logo.png'
   favicon: 'images/seliware_logo.png'
+  extra_templates:
+  - meta.html
   features:
     - navigation.instant
     - navigation.sections
