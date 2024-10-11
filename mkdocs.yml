@@ -7,15 +7,17 @@ theme:
     scheme: 'slate'
   logo: 'images/seliware_logo.png'
   favicon: 'images/seliware_logo.png'
-  extra_templates:
-  - meta.html
   features:
     - navigation.instant
     - navigation.sections
     - search.highlight
     - search.suggest
     - highlightjs
-    
+
+# Include the meta.html file in all pages
+extra_templates:
+  - meta.html
+
 # Markdown Extensions
 markdown_extensions:
   - pymdownx.highlight:
@@ -43,6 +45,5 @@ nav:
 # Optional extra CSS/JS
 extra_css:
   - stylesheets/extra.css
-
 extra_javascript:
   - javascripts/extra.js
