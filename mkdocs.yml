@@ -5,15 +5,13 @@ theme:
   name: 'material'
   palette:
     scheme: 'slate'  # Options: 'default', 'slate', 'dark', etc.
+  logo: 'images/seliware_logo.png'  # Path to your logo inside the 'docs' directory
   features:
     - navigation.instant
     - navigation.sections
     - search.highlight
     - search.suggest
     - highlightjs
-
-extra:
-  favicon: 'images/seliware_logo.png'
 
 # Markdown Extensions
 markdown_extensions:
