@@ -11,7 +11,10 @@ theme:
     - search.highlight
     - search.suggest
     - highlightjs
-    
+
+extra:
+  favicon: 'images/seliware_logo.png'
+
 # Markdown Extensions
 markdown_extensions:
   - pymdownx.highlight:
