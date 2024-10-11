@@ -5,16 +5,14 @@ theme:
   name: 'material'
   palette:
     scheme: 'slate'
+  logo: 'images/seliware_logo.png'
+  favicon: 'images/seliware_logo.png'
   features:
     - navigation.instant
     - navigation.sections
     - search.highlight
     - search.suggest
     - highlightjs
-
-extra:
-  logo: 'images/seliware_logo.png'
-  favicon: 'images/seliware_logo.png'
     
 # Markdown Extensions
 markdown_extensions:
