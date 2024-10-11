@@ -4,14 +4,17 @@ site_name: Seliware API Documentation
 theme:
   name: 'material'
   palette:
-    scheme: 'slate'  # Options: 'default', 'slate', 'dark', etc.
-  logo: 'images/seliware_logo.png'  # Path to your logo inside the 'docs' directory
+    scheme: 'slate'
   features:
     - navigation.instant
     - navigation.sections
     - search.highlight
     - search.suggest
     - highlightjs
+
+extra:
+  logo: 'images/seliware_logo.png'
+  favicon: 'images/seliware_logo.png'
 
 # Markdown Extensions
 markdown_extensions:
