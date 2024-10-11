@@ -3,6 +3,7 @@ site_name: Seliware API Documentation
 # Theme Settings
 theme:
   name: 'material'
+  custom_dir: 'overrides'  # This tells MkDocs where to find your custom templates
   palette:
     scheme: 'slate'
   logo: 'images/seliware_logo.png'
@@ -13,10 +14,6 @@ theme:
     - search.highlight
     - search.suggest
     - highlightjs
-
-# Include the meta.html file in all pages
-extra_templates:
-  - meta.html
 
 # Markdown Extensions
 markdown_extensions:
