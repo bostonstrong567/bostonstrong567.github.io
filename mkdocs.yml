@@ -1,0 +1,44 @@
+site_name: Seliware API Documentation
+
+# Theme Settings
+theme:
+  name: 'material'
+  palette:
+    scheme: 'slate'  # Options: 'default', 'slate', 'dark', etc.
+  features:
+    - navigation.instant
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - highlightjs
+    
+# Markdown Extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+# Navigation Configuration
+nav:
+  - Home: index.md
+  - Inputs: categories/input_management.md
+  - Environment: categories/environment_management.md
+  - Files: categories/file_management.md
+  - Clipboard: categories/clipboard_management.md
+  - Signals: categories/signal_event_management.md
+  - Meta & Closures: categories/metatable_closure_management.md
+  - Threads & Context: categories/thread_context_management.md
+  - HTTP and WebSocket Requests: categories/http_websocket_requests.md
+  - Debugging and Profiling: categories/debugging_profiling.md
+  - Miscellaneous: categories/miscellaneous.md
+
+# Optional extra CSS/JS
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
