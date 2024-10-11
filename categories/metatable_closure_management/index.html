@@ -1,0 +1,892 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../signal_event_management/">
+      
+      
+        <link rel="next" href="../thread_context_management/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>Meta & Closures - Seliware API Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metatable-and-closure-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Seliware API Documentation" class="md-header__button md-logo" aria-label="Seliware API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Seliware API Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Meta & Closures
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Seliware API Documentation" class="md-nav__button md-logo" aria-label="Seliware API Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Seliware API Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inputs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clipboard_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clipboard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signal_event_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Meta & Closures
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Meta & Closures
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metatable-and-closure-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metatable and Closure Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metatable and Closure Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getrawmetatable" class="md-nav__link">
+    <span class="md-ellipsis">
+      getrawmetatable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setrawmetatable" class="md-nav__link">
+    <span class="md-ellipsis">
+      setrawmetatable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clonefunction" class="md-nav__link">
+    <span class="md-ellipsis">
+      clonefunction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newcclosure" class="md-nav__link">
+    <span class="md-ellipsis">
+      newcclosure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hookfunction" class="md-nav__link">
+    <span class="md-ellipsis">
+      hookfunction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hookmetamethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      hookmetamethod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setreadonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      setreadonly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makewritable" class="md-nav__link">
+    <span class="md-ellipsis">
+      makewritable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_readonly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setscriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      setscriptable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isscriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      isscriptable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thread_context_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Threads & Context
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http_websocket_requests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP and WebSocket Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging_profiling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging and Profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../miscellaneous/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metatable-and-closure-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metatable and Closure Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metatable and Closure Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getrawmetatable" class="md-nav__link">
+    <span class="md-ellipsis">
+      getrawmetatable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setrawmetatable" class="md-nav__link">
+    <span class="md-ellipsis">
+      setrawmetatable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clonefunction" class="md-nav__link">
+    <span class="md-ellipsis">
+      clonefunction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newcclosure" class="md-nav__link">
+    <span class="md-ellipsis">
+      newcclosure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hookfunction" class="md-nav__link">
+    <span class="md-ellipsis">
+      hookfunction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hookmetamethod" class="md-nav__link">
+    <span class="md-ellipsis">
+      hookmetamethod
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setreadonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      setreadonly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makewritable" class="md-nav__link">
+    <span class="md-ellipsis">
+      makewritable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_readonly" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_readonly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setscriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      setscriptable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isscriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      isscriptable
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="metatable-and-closure-management">Metatable and Closure Management</h1>
+<p>This section covers all functions related to metatable manipulation and closure handling.</p>
+<h2 id="metatable-and-closure-functions">Metatable and Closure Functions</h2>
+<h3 id="getrawmetatable"><a href="../../examples/getrawmetatable_example/">getrawmetatable</a></h3>
+<p>Returns an object's metatable, ignoring the <code>__metatable</code> metamethod.</p>
+<p><strong>Description:</strong>
+<code>getrawmetatable</code> allows access to the original metatable of an object, bypassing any restrictions that may be in place via the <code>__metatable</code> field.</p>
+<p><strong>Arguments:</strong>
+- <code>object</code> <em>(table)</em>: The object whose metatable is to be retrieved.</p>
+<p><strong>Returns:</strong>
+- <em>(table)</em>: The original metatable of the object.</p>
+<hr />
+<h3 id="setrawmetatable"><a href="../../examples/setrawmetatable_example/">setrawmetatable</a></h3>
+<p>Sets an object's metatable, ignoring the <code>__metatable</code> metamethod.</p>
+<p><strong>Description:</strong>
+<code>setrawmetatable</code> sets a new metatable for an object, even if the <code>__metatable</code> field is present, which normally prevents modification.</p>
+<p><strong>Arguments:</strong>
+- <code>object</code> <em>(table)</em>: The object whose metatable is to be set.
+- <code>metatable</code> <em>(table)</em>: The new metatable to assign.</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the metatable was successfully set, false otherwise.</p>
+<hr />
+<h3 id="clonefunction"><a href="../../examples/clonefunction_example/">clonefunction</a></h3>
+<p>Clones a function.</p>
+<p><strong>Description:</strong>
+<code>clonefunction</code> creates an exact copy of a Lua function, which can then be used independently of the original.</p>
+<p><strong>Arguments:</strong>
+- <code>func</code> <em>(function)</em>: The function to be cloned.</p>
+<p><strong>Returns:</strong>
+- <em>(function)</em>: The cloned function.</p>
+<hr />
+<h3 id="newcclosure"><a href="../../examples/newcclosure_example/">newcclosure</a></h3>
+<p>Creates a C wrapper around <code>closure</code>.</p>
+<p><strong>Description:</strong>
+<code>newcclosure</code> wraps a given Lua function in a C closure, which can improve performance and security when interacting with certain systems.</p>
+<p><strong>Arguments:</strong>
+- <code>closure</code> <em>(function)</em>: The Lua function to wrap.</p>
+<p><strong>Returns:</strong>
+- <em>(function)</em>: The C closure wrapping the original function.</p>
+<hr />
+<h3 id="hookfunction"><a href="../../examples/hookfunction_example/">hookfunction</a></h3>
+<p>Hooks a Lua or C function in-place. Returns a copy of the original function.</p>
+<p><strong>Description:</strong>
+<code>hookfunction</code> replaces a target function with a new function, allowing custom behavior to be injected. The original function is returned for further use if needed.</p>
+<p><strong>Arguments:</strong>
+- <code>target</code> <em>(function)</em>: The function to be hooked.
+- <code>replacement</code> <em>(function)</em>: The function that will replace the original.</p>
+<p><strong>Returns:</strong>
+- <em>(function)</em>: The original, unhooked function.</p>
+<hr />
+<h3 id="hookmetamethod"><a href="../../examples/hookmetamethod_example/">hookmetamethod</a></h3>
+<p>Hooks a metatable method.</p>
+<p><strong>Description:</strong>
+<code>hookmetamethod</code> allows you to replace a specific method in an object's metatable, enabling custom behavior when that method is called.</p>
+<p><strong>Arguments:</strong>
+- <code>object</code> <em>(table)</em>: The object whose metatable method is to be hooked.
+- <code>method</code> <em>(string)</em>: The name of the method to hook.
+- <code>replacement</code> <em>(function)</em>: The function that will replace the original method.</p>
+<p><strong>Returns:</strong>
+- <em>(function)</em>: The original method before it was hooked.</p>
+<hr />
+<h3 id="setreadonly"><a href="../../examples/setreadonly_example/">setreadonly</a></h3>
+<p>Sets a table's read-only flag.</p>
+<p><strong>Description:</strong>
+<code>setreadonly</code> is used to make a table read-only, preventing further modifications to its keys or values.</p>
+<p><strong>Arguments:</strong>
+- <code>table</code> <em>(table)</em>: The table to modify.
+- <code>readonly</code> <em>(bool)</em>: Whether the table should be set to read-only (true) or writable (false).</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the operation was successful, false otherwise.</p>
+<hr />
+<h3 id="makewritable"><a href="../../examples/make_writable_example/">makewritable</a></h3>
+<p>Equivalent to <code>setreadonly(table, false)</code>.</p>
+<p><strong>Description:</strong>
+<code>makewritable</code> is a convenience function to make a table writable, allowing modifications.</p>
+<p><strong>Arguments:</strong>
+- <code>table</code> <em>(table)</em>: The table to modify.</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the table was successfully made writable.</p>
+<hr />
+<h3 id="make_readonly"><a href="../../examples/make_readonly_example/">make_readonly</a></h3>
+<p>Equivalent to <code>setreadonly(table, true)</code>.</p>
+<p><strong>Description:</strong>
+<code>make_readonly</code> is a convenience function to make a table read-only.</p>
+<p><strong>Arguments:</strong>
+- <code>table</code> <em>(table)</em>: The table to modify.</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the table was successfully made read-only.</p>
+<hr />
+<h3 id="setscriptable"><a href="../../examples/setscriptable_example/">setscriptable</a></h3>
+<p>Sets a property's scriptable flag.</p>
+<p><strong>Description:</strong>
+<code>setscriptable</code> controls whether a property of an object can be accessed or modified by scripts.</p>
+<p><strong>Arguments:</strong>
+- <code>object</code> <em>(Instance)</em>: The object whose property is to be modified.
+- <code>property</code> <em>(string)</em>: The name of the property.
+- <code>scriptable</code> <em>(bool)</em>: Whether the property should be scriptable (true) or not (false).</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the operation was successful, false otherwise.</p>
+<hr />
+<h3 id="isscriptable"><a href="../../examples/isscriptable_example/">isscriptable</a></h3>
+<p>Returns whether a property is scriptable.</p>
+<p><strong>Description:</strong>
+<code>isscriptable</code> checks if a specific property of an object can be accessed or modified by scripts.</p>
+<p><strong>Arguments:</strong>
+- <code>object</code> <em>(Instance)</em>: The object whose property is being checked.
+- <code>property</code> <em>(string)</em>: The name of the property.</p>
+<p><strong>Returns:</strong>
+- <em>(bool)</em>: Returns true if the property is scriptable, false otherwise.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "search.highlight", "search.suggest", "highlightjs"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
